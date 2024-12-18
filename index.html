@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Countdown bis zum Start des Ticketshops für Abimania">
+  	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Caesar+Dressing&display=swap" rel="stylesheet">
+  <title>Abi-Theaterstück - Countdown</title>
+  <style>
+    body {
+	    font-family: "Centzel", serif;
+	    font-weight: 400;
+	    font-style: normal;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(135deg, #1f75aa, #dfe4bd);
+      color: #fff;
+      overflow: hidden;
+    }
+
+    #logo {
+      position: absolute;
+      top: -5rem;
+      scale: 0.3;
+    }
+
+    .background img {
+      width: 50px;
+      height: 50px;
+      opacity: 0.3; /* Symbole leicht transparent */
+    }
+
+    /* Container für den Countdown */
+    .container {
+      text-align: center;
+      max-width: 80%;
+      padding: 2%;
+      border: 2px solid rgba(0, 0, 0, 0.3);
+      border-radius: 20px;
+      background: rgba(0, 0, 0, 0.6);
+      box-shadow: 0 20px 30px rgba(0, 0, 0, 0.5);
+      transition: all 0.5s ease; /* Übergangseffekte */
+    }
+
+    .container:hover {
+      animation: smoothHover 0.5s forwards;
+    }
+
+    .container:not(:hover) {
+      animation: smoothLeave 0.5s forwards;
+    }
+
+    @keyframes smoothHover {
+      0% {
+        transform: scale(1);
+        box-shadow: 0 20px 30px rgba(0, 0, 0, 0.5);
+      }
+      100% {
+        transform: scale(1.05);
+        box-shadow: 0 20px 30px rgba(0, 0, 0, 0.7);
+      }
+    }
+
+    @keyframes smoothLeave {
+      0% {
+        transform: scale(1.05);
+        box-shadow: 0 20px 30px rgba(0, 0, 0, 0.7);
+      }
+      100% {
+        transform: scale(1);
+        box-shadow: 0 20px 30px rgba(0, 0, 0, 0.5);
+      }
+    }
+
+    .container h1 {
+      font-family: 'Caesar Dressing', cursive;
+      font-size: 4rem;
+      margin-bottom: 1rem;
+    }
+
+    .container h2 {
+      font-family: 'Centzel', serif;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .countdown {
+      font-size: 2rem;
+      margin: 20px 0;
+    }
+
+    .footer {
+      font-size: 1rem;
+      margin-top: 20px;
+      color: #dcdcdc;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .container {
+        max-width: 90%;
+        padding: 15px;
+      }
+
+      .container h1 {
+        font-size: 2rem;
+      }
+
+      .countdown {
+        font-size: 1.5rem;
+      }
+
+      .background {
+        background-size: 100px 100px; /* Kleinere Symbole auf Tablets/Smartphones */
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container h1 {
+        font-size: 1.8rem;
+      }
+
+      .countdown {
+        font-size: 1.2rem;
+      }
+
+      .background {
+        background-size: 80px 80px; /* Noch kleinere Symbole auf Smartphones */
+      }
+    }
+  </style>
+</head>
+<body>
+  <img src="images/hgp.png" alt="Logo HGP" id="logo">
+
+  <!-- Countdown-Container -->
+  <div class="container">
+    <h1>Abimania-Ticketshop</h1>
+    <h2>Coming Soon.</h2>
+    <p class="countdown" id="countdown">Lädt...</p>
+  </div>
+
+  <script>
+    // Countdown-Zeit (z. B. 1. Januar 2025, 18:00 Uhr)
+    const countdownDate = new Date("January 1, 2025 18:00:00").getTime();
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = countdownDate - now;
+
+      // Berechnungen für Tage, Stunden, Minuten, Sekunden
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      if (distance > 0) {
+        document.getElementById("countdown").innerHTML = 
+          `${days}d ${hours}hrs ${minutes}min ${seconds}sec`;
+      } else {
+        document.getElementById("countdown").innerHTML = "Der Shop ist live!";
+      }
+    }
+
+    // Countdown jede Sekunde aktualisieren
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    
+
+
+  </script>
+</body>
+</html>
